@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    $(if refresh-timeout)
+    <meta http-equiv="refresh" content="$(refresh-timeout-secs)">
+    $(endif)
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PANDO — Session active</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+    $(if advert-pending == 'yes')
+        var popup = '';
+        function focusAdvert() {
+            if (window.focus) popup.focus();
+        }
+        function openAdvert() {
+            popup = open('$(link-advert)', 'hotspot_advert', '');
+            setTimeout("focusAdvert()", 1000);
+        }
+    $(endif)
+        function openLogout() {
+            if (window.name != 'hotspot_status') return true;
+            open('$(link-logout)', 'hotspot_logout', 'toolbar=0,location=0,directories=0,status=0,menubars=0,resizable=1,width=350,height=400');
+            window.close();
+            return false;
+        }
+    </script>
+</head>
+<body $(if advert-pending == 'yes') onLoad="openAdvert()" $(endif)>
+
+    <div class="bg-glow"></div>
+
+    <div class="portal">
+        <div class="card">
+
+            <!-- Logo -->
+            <div class="logo">
+                <svg class="logo-icon" viewBox="0 0 48 48" fill="none" style="width:40px;height:40px;">
+                    <circle cx="24" cy="8" r="3.5" fill="#10B981"/>
+                    <circle cx="12" cy="24" r="2.8" fill="#10B981" opacity="0.8"/>
+                    <circle cx="36" cy="24" r="2.8" fill="#10B981" opacity="0.8"/>
+                    <circle cx="6" cy="38" r="2" fill="#34D399" opacity="0.5"/>
+                    <circle cx="20" cy="40" r="2" fill="#34D399" opacity="0.5"/>
+                    <circle cx="28" cy="40" r="2" fill="#34D399" opacity="0.5"/>
+                    <circle cx="42" cy="38" r="2" fill="#34D399" opacity="0.5"/>
+                    <path d="M24 11.5L12 21.2M24 11.5L36 21.2M12 26.8L6 36M12 26.8L20 38M36 26.8L42 36M36 26.8L28 38" stroke="#10B981" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
+                </svg>
+                <div class="logo-text" style="font-size:22px;letter-spacing:5px;"><span>P</span>ANDO</div>
+            </div>
+
+            <!-- Greeting -->
+            <div class="greeting">
+                $(if login-by == 'trial')
+                <div class="greeting-name">Session d'essai</div>
+                <div class="greeting-sub"><span class="badge badge-success">Connecté</span></div>
+                $(elif login-by != 'mac')
+                <div class="greeting-name">$(username)</div>
+                <div class="greeting-sub"><span class="badge badge-success">Connecté</span></div>
+                $(endif)
+            </div>
+
+            <!-- Session Metrics -->
+            <div class="metrics">
+                <div class="metric">
+                    <div class="metric-label">Connecté depuis</div>
+                    <div class="metric-value">$(uptime)</div>
+                </div>
+                $(if session-time-left)
+                <div class="metric">
+                    <div class="metric-label">Temps restant</div>
+                    <div class="metric-value">$(session-time-left)</div>
+                </div>
+                $(endif)
+                <div class="metric">
+                    <div class="metric-label">⬇ Reçu</div>
+                    <div class="metric-value">$(bytes-in-nice)</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-label">⬆ Envoyé</div>
+                    <div class="metric-value">$(bytes-out-nice)</div>
+                </div>
+            </div>
+
+            <!-- Device Info -->
+            <table class="info-table">
+                <tr><td>Adresse IP</td><td>$(ip)</td></tr>
+                <tr><td>Adresse MAC</td><td>$(mac)</td></tr>
+                $(if blocked == 'yes')
+                <tr>
+                    <td>Statut</td>
+                    <td><a href="$(link-advert)" target="hotspot_advert" class="badge badge-warning">Publicité requise</a></td>
+                </tr>
+                $(elif refresh-timeout)
+                <tr><td>Rafraîchissement</td><td>$(refresh-timeout)</td></tr>
+                $(endif)
+            </table>
+
+            <!-- Logout -->
+            $(if login-by-mac != 'yes')
+            <form action="$(link-logout)" name="logout" onSubmit="return openLogout()">
+                <input type="submit" value="Se déconnecter" style="background:rgba(255,255,255,0.06);color:var(--text-primary);border:1px solid rgba(255,255,255,0.1);box-shadow:none;">
+            </form>
+            $(endif)
+
+            <div class="footer">
+                PANDO — Un réseau. Une communauté.
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PANDO — Déconnexion</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        function openLogin() {
+            if (window.name != 'hotspot_logout') return true;
+            open('$(link-login)', '_blank', '');
+            window.close();
+            return false;
+        }
+    </script>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <div class="portal">
+        <div class="card">
+
+            <!-- Icon -->
+            <svg class="icon-lg" viewBox="0 0 64 64" fill="none">
+                <circle cx="32" cy="32" r="28" stroke="#10B981" stroke-width="2" opacity="0.2"/>
+                <path d="M22 32L29 39L42 26" stroke="#10B981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+
+            <h1 class="card-title">Vous êtes déconnecté</h1>
+            <p class="text-center text-muted mb-24">Merci d'avoir utilisé le réseau PANDO.</p>
+
+            <!-- Session Summary -->
+            <table class="info-table">
+                <tr><td>Utilisateur</td><td>$(username)</td></tr>
+                <tr><td>Adresse IP</td><td>$(ip)</td></tr>
+                <tr><td>Adresse MAC</td><td>$(mac)</td></tr>
+                <tr><td>Durée de session</td><td>$(uptime)</td></tr>
+                $(if session-time-left)
+                <tr><td>Temps restant</td><td>$(session-time-left)</td></tr>
+                $(endif)
+                <tr><td>Données</td><td>⬇ $(bytes-in-nice) / ⬆ $(bytes-out-nice)</td></tr>
+            </table>
+
+            <!-- Re-login -->
+            <form action="$(link-login)" name="login" onSubmit="return openLogin()">
+                <input type="submit" value="Se reconnecter" />
+            </form>
+
+            <div class="footer">
+                PANDO — Un réseau. Une communauté.
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

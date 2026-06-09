@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta http-equiv="refresh" content="2; url=$(link-redirect)">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PANDO — Connexion réussie</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        function startClock() {
+            $(if popup == 'true')
+            open('$(link-status)', 'hotspot_status', 'toolbar=0,location=0,directories=0,status=0,menubars=0,resizable=1,width=350,height=400');
+            $(endif)
+            location.href = unescape('$(link-redirect-esc)');
+        }
+    </script>
+</head>
+<body onLoad="startClock()">
+
+    <div class="bg-glow"></div>
+
+    <div class="portal">
+        <div class="card" style="text-align:center;">
+
+            <!-- Success Icon -->
+            <svg class="icon-lg pulse" viewBox="0 0 64 64" fill="none">
+                <circle cx="32" cy="32" r="28" fill="rgba(16,185,129,0.08)" stroke="#10B981" stroke-width="2"/>
+                <path d="M22 32L29 39L42 26" stroke="#10B981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+
+            <h1 class="card-title success">Connexion réussie !</h1>
+            <p class="text-muted mb-24">Vous allez être redirigé automatiquement…</p>
+
+            <div class="spinner"></div>
+
+            <p class="text-muted" style="font-size:12px;">
+                Si rien ne se passe, <a href="$(link-redirect)">cliquez ici</a>.
+            </p>
+
+            <div class="footer">
+                PANDO — Un réseau. Une communauté.
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

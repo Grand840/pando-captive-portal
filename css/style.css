@@ -742,4 +742,8 @@ a:hover {
   .card {
     max-width: 480px;
   }
+
+  .pricing-card.featured {
+    grid-column: span 2;
+  }
 }
